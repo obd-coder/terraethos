@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terra Ethos</title>
+  <meta name="description" content="Terra Ethos — a universal ethical framework rooted in care, reason, compassion, and shared responsibility." />
+  <style>
+    :root {
+      --bg: #030b14;
+      --bg-2: #071421;
+      --panel: rgba(9, 18, 30, 0.72);
+      --border: rgba(255,255,255,0.08);
+      --text: #eef5ff;
+      --muted: #c0d1df;
+      --gold: #f3b548;
+      --gold-soft: #ffd987;
+      --blue: #4ba6ff;
+      --green: #7fdf45;
+      --red: #ff5c6c;
+      --orange: #ff983a;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --radius: 24px;
+      --max: 1180px;
+      --section-gap: 110px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 75px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(75,166,255,0.16), transparent 25%),
+        radial-gradient(circle at 85% 14%, rgba(127,223,69,0.08), transparent 18%),
+        linear-gradient(180deg, #020812 0%, #06111b 25%, #071521 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -2%;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.9) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 72% 11%, rgba(255,255,255,0.7) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 84% 31%, rgba(255,255,255,0.55) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 28% 44%, rgba(255,255,255,0.45) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 61% 56%, rgba(255,255,255,0.45) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 18% 73%, rgba(255,255,255,0.35) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 79% 82%, rgba(255,255,255,0.38) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 41% 88%, rgba(255,255,255,0.3) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 8% 8%, rgba(255,255,255,0.55) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 33% 22%, rgba(255,255,255,0.4) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 57% 14%, rgba(255,255,255,0.32) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 91% 20%, rgba(255,255,255,0.42) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 14% 39%, rgba(255,255,255,0.28) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 49% 41%, rgba(255,255,255,0.36) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 67% 63%, rgba(255,255,255,0.34) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 89% 67%, rgba(255,255,255,0.26) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 23% 91%, rgba(255,255,255,0.3) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 73% 93%, rgba(255,255,255,0.38) 0 1px, transparent 1.4px);
+      background-size: 100% 100%;
+      opacity: 0.72;
+      animation: starDrift 36s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    p, li, .small, .lead, .hero-copy, .eyebrow, .button, .nav-links, .journey-label, .scroll-hint {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(2, 9, 16, 0.76);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold-soft);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--green), var(--blue), #7a40ff, var(--orange));
+      padding: 2px;
+      box-shadow: 0 0 24px rgba(75,166,255,0.28);
+      flex: 0 0 auto;
+    }
+
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #08111d;
+      font-size: 0.95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .hero {
+      min-height: 95vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 4.5rem 0 6rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--gold-soft);
+      font-size: 0.92rem;
+    }
+
+    .eyebrow::before { content: "✦"; color: var(--gold); }
+
+    h1, h2, h3 { margin: 0 0 1rem; line-height: 1.08; }
+
+    h1 {
+      font-size: clamp(3.6rem, 8vw, 6.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(243,181,72,0.14);
+    }
+
+    .hero-kicker {
+      max-width: 38rem;
+      color: #fff4d4;
+      font-size: clamp(1.2rem, 2.3vw, 1.7rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero-copy {
+      max-width: 42rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #f4b13a, #ff9738);
+      color: #1f1400;
+      border: 0;
+      box-shadow: 0 10px 30px rgba(255,151,56,0.2);
+    }
+
+    .hero-side {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .earth-stage {
+      position: relative;
+      width: min(100%, 520px);
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .earth-halo,
+    .earth-halo-2,
+    .earth-ripple {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .earth-halo {
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(75,166,255,0.26), rgba(127,223,69,0.14), rgba(255,152,58,0.06), transparent 72%);
+      filter: blur(36px);
+      animation: breathe 7s ease-in-out infinite, haloRotate 90s linear infinite;
+    }
+
+    .earth-halo-2 {
+      width: 95%;
+      height: 95%;
+      background: radial-gradient(circle, rgba(255,255,255,0.11), rgba(75,166,255,0.04), transparent 72%);
+      filter: blur(20px);
+      animation: breathe 5.5s ease-in-out infinite reverse;
+    }
+
+    .earth-ripple {
+      width: 92%;
+      height: 92%;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 0 38px rgba(75,166,255,0.08), inset 0 0 24px rgba(255,255,255,0.03);
+      animation: ripple 7s ease-in-out infinite;
+      opacity: 0.45;
+    }
+
+    .logo-card {
+      position: relative;
+      width: min(100%, 360px);
+      aspect-ratio: 1 / 1;
+      padding: 18px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      z-index: 2;
+      animation: floatCard 8s ease-in-out infinite;
+    }
+
+    .logo-card::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.18) 0%,
+        rgba(255,255,255,0.06) 30%,
+        transparent 60%
+      );
+      animation: ethosPulse 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .logo-card img {
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    @keyframes haloRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes ripple {
+      0%, 100% { transform: scale(0.98); opacity: 0.24; }
+      50% { transform: scale(1.03); opacity: 0.52; }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes starDrift {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      25% { transform: translate3d(-10px, 8px, 0) scale(1.01); }
+      50% { transform: translate3d(-18px, 16px, 0) scale(1.015); }
+      75% { transform: translate3d(-9px, 22px, 0) scale(1.01); }
+      100% { transform: translate3d(0, 30px, 0) scale(1.02); }
+    }
+
+    @keyframes ethosPulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.35;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.55;
+      }
+      100% {
+        transform: scale(0.9);
+        opacity: 0.35;
+      }
+    }
+
+    .section {
+      position: relative;
+      padding: var(--section-gap) 0;
+    }
+
+    .section-title {
+      font-size: clamp(2.4rem, 5vw, 4.3rem);
+      color: var(--gold-soft);
+      margin-bottom: 0.9rem;
+    }
+
+    .lead {
+      max-width: 52rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .story-block {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 1.4rem;
+      align-items: stretch;
+    }
+
+    .journey-card,
+    .panel,
+    .value-card,
+    .symbol-card,
+    .closing-panel,
+    .manifesto-stage {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .journey-card,
+    .panel,
+    .manifesto-stage { padding: 1.5rem; }
+
+    .journey-label {
+      display: inline-block;
+      margin-bottom: 0.85rem;
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.8rem;
+    }
+
+    .story-intro {
+      max-width: 50rem;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      color: #f6f2e7;
+      margin-bottom: 1rem;
+    }
+
+    .story-copy { max-width: 46rem; color: var(--muted); font-size: 1.04rem; }
+    .small { color: var(--muted); font-size: 0.98rem; }
+
+    .preamble-text {
+      font-size: clamp(1.18rem, 2vw, 1.45rem);
+      color: #fbf7ef;
+    }
+
+    .manifesto-stage {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .manifesto-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(75,166,255,0.07), transparent 40%, rgba(243,181,72,0.05));
+      pointer-events: none;
+    }
+
+    .manifesto-reveal {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-reveal::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(3,11,20,1) 0%, rgba(3,11,20,0.92) 38%, rgba(3,11,20,0.1) 60%, rgba(3,11,20,0.95) 100%);
+      transform: translateX(-105%);
+      transition: transform 1.6s ease;
+      pointer-events: none;
+    }
+
+    .manifesto-reveal.active::after { transform: translateX(105%); }
+
+    .manifesto-line {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .manifesto-reveal.active .manifesto-line {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .manifesto-reveal.active .manifesto-line:nth-child(1) { transition-delay: 0.15s; }
+    .manifesto-reveal.active .manifesto-line:nth-child(2) { transition-delay: 0.35s; }
+    .manifesto-reveal.active .manifesto-line:nth-child(3) { transition-delay: 0.55s; }
+
+    .manifesto-grid,
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .panel h3,
+    .symbol-card h3 {
+      color: #fff2cb;
+      font-size: 1.35rem;
+      margin: 0;
+    }
+
+    ul.clean { margin: 0; padding-left: 1.2rem; }
+    ul.clean li + li { margin-top: 0.85rem; }
+
+    .values-stack {
+      display: grid;
+      gap: 1rem;
+      max-width: 980px;
+    }
+
+    .value-card {
+      padding: 1.2rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(75,166,255,0.06), transparent 40%, rgba(243,181,72,0.04));
+      pointer-events: none;
+    }
+
+    .value-card strong { color: white; font-size: 1.04rem; }
+
+    .symbol-card {
+      padding: 1.3rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .symbol-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.42);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+    }
+
+    .symbol-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: default;
+    }
+
+    .dot {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      box-shadow: 0 0 14px rgba(255,255,255,0.14);
+    }
+
+    .blue { background: var(--blue); }
+    .green { background: var(--green); }
+    .red { background: var(--red); }
+    .orange { background: var(--orange); }
+    .dark { background: #2a394b; }
+    .white { background: #ffffff; }
+
+    .symbol-content {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      overflow: hidden;
+      transition: max-height 0.55s ease, opacity 0.4s ease, transform 0.4s ease, margin-top 0.4s ease;
+      margin-top: 0;
+    }
+
+    .symbol-card:hover .symbol-content,
+    .symbol-card.active .symbol-content,
+    .symbol-card:focus-within .symbol-content {
+      max-height: 260px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 0.8rem;
+    }
+
+    .symbol-hint {
+      margin-left: auto;
+      color: var(--gold-soft);
+      font-size: 0.92rem;
+      opacity: 0.72;
+      transition: opacity 0.25s ease;
+    }
+
+    .symbol-card:hover .symbol-hint,
+    .symbol-card.active .symbol-hint,
+    .symbol-card:focus-within .symbol-hint {
+      opacity: 1;
+    }
+
+    .closing {
+      padding-top: 2rem;
+      padding-bottom: 6rem;
+    }
+
+    .closing-panel {
+      padding: 2rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .closing-panel h2 {
+      color: var(--gold-soft);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .closing-panel p {
+      color: #f0f5fb;
+      font-size: 1.15rem;
+      margin: 0.4rem 0;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        min-height: auto;
+        padding: 3.5rem 0 5rem;
+      }
+
+      .hero-grid,
+      .story-block,
+      .manifesto-grid,
+      .symbol-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side { min-height: 420px; }
+      .earth-stage { width: min(100%, 420px); }
+    }
+
+    @media (max-width: 720px) {
+      :root { --section-gap: 84px; }
+      .container { width: min(var(--max), calc(100% - 1rem)); }
+      .nav-inner { flex-direction: column; align-items: flex-start; }
+      .nav-links { gap: 0.8rem; font-size: 0.9rem; }
+      .journey-card, .panel, .value-card, .symbol-card, .closing-panel, .manifesto-stage, .logo-card { padding: 1.1rem; }
+      .hero-side { min-height: 360px; }
+      .logo-card { animation-duration: 10s; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark"><span class="brand-mark-inner">❤</span></span>
+        <span>Terra Ethos</span>
+      </a>
+      <div class="nav-links">
+        <a href="#problem">Why</a>
+        <a href="#recognition">Recognition</a>
+        <a href="#framework">Framework</a>
+        <a href="#values">Values</a>
+        <a href="#symbolism">Symbol</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="reveal visible">
+        <div class="eyebrow">A universal ethical framework for humanity</div>
+        <h1>Terra Ethos</h1>
+        <p class="hero-kicker">Freedom is real when love is real. United in care, guided by reason.</p>
+        <p class="hero-copy">
+          Terra Ethos is a universal ethical framework rooted in compassion, rationality, dignity, and shared responsibility. It is not a religion. It is a foundation for how Terrans might stand as equals on one world.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#problem">Begin the Journey</a>
+          <a class="button" href="#values">Read the Core Values</a>
+        </div>
+      </div>
+
+      <div class="hero-side reveal visible">
+        <div class="earth-stage">
+          <div class="earth-halo"></div>
+          <div class="earth-halo-2"></div>
+          <div class="earth-ripple"></div>
+          <div class="logo-card">
+            <img src="logo.png" alt="Terra Ethos emblem showing the Earth held in a hand, with a triangle and heart at the center." />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="problem">
+      <div class="container story-block">
+        <div class="reveal">
+          <span class="journey-label">Stage 1 · The Problem</span>
+          <h2 class="section-title">One Planet. Endless Division.</h2>
+          <p class="story-intro">We live on one world, yet divide ourselves by borders, labels, ideologies, class, tribe, and fear.</p>
+          <p class="story-copy">
+            Terra Ethos begins with a refusal to accept that fragmentation is the highest form of civilization. It asks whether humanity can be grounded in something deeper than competition for dominance: a shared ethic of care, reason, dignity, and responsibility.
+          </p>
+        </div>
+        <div class="journey-card reveal">
+          <span class="journey-label">The Central Question</span>
+          <p class="preamble-text">
+            What if our future depends not on the triumph of one group over another, but on whether we learn to live as one species sharing one home?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="recognition">
+      <div class="container story-block">
+        <div class="journey-card reveal">
+          <span class="journey-label">Stage 2 · Recognition</span>
+          <p class="preamble-text">
+            Our future depends on our shared capacity for reason, compassion, and care.
+          </p>
+          <p class="small">
+            Not the victory of one faction. Not the humiliation of another. Not domination dressed as order.
+          </p>
+        </div>
+        <div class="reveal">
+          <h2 class="section-title">A Shared Realization</h2>
+          <p class="story-copy">
+            Terra Ethos recognizes that a viable civilization must be built on something universal enough to include everyone, yet strong enough to guide conduct. It is a response to spiritual emptiness, social fracture, and systems that reward power without wisdom.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="framework">
+      <div class="container">
+        <div class="reveal">
+          <span class="journey-label">Stage 3 · The Framework</span>
+          <h2 class="section-title">Preamble</h2>
+        </div>
+
+        <div class="manifesto-stage reveal" style="margin-bottom: 1.4rem;">
+          <div class="manifesto-reveal" id="manifestoReveal">
+            <p class="preamble-text manifesto-line">We, as one people sharing one planet, recognize that our future depends not on the triumph of one group over another, but on our shared capacity for reason, compassion, and care.</p>
+            <p class="preamble-text manifesto-line">Terra Ethos exists as a universal framework meant to transcend borders, labels, and belief systems.</p>
+            <p class="preamble-text manifesto-line">It is not a religion, but an ethical foundation upon which all Terrans can stand as equals.</p>
+          </div>
+        </div>
+
+        <div class="manifesto-grid">
+          <article class="panel reveal">
+            <h3>Motto</h3>
+            <p class="preamble-text" style="font-size:1.2rem; margin-bottom:0;">“Freedom Is Real When Love Is Real. United in Care, Guided by Reason.”</p>
+          </article>
+
+          <article class="panel reveal">
+            <h3>Glossary of Key Terms</h3>
+            <ul class="clean">
+              <li><strong>Terra</strong> — Latin for “Earth.” Used here to evoke a universal connection to the planet we all share, free from modern borders or cultural divisions.</li>
+              <li><strong>Terran / Terrans</strong> — Derived from Terra, meaning an individual or group of Earth-born beings.</li>
+              <li><strong>Ethos</strong> — A Greek word meaning “character” or “guiding belief.” Here it represents the spirit, values, and moral code that guide a united and compassionate society.</li>
+              <li><strong>Terra Ethos</strong> — Literally “Earth’s Character” or “The Way of Earth.” A framework of universal values rooted in care, logic, and shared responsibility, designed to unify Terrans without religion, politics, or labels.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="values">
+      <div class="container">
+        <div class="reveal">
+          <span class="journey-label">Stage 4 · The Principles</span>
+          <h2 class="section-title">Core Values</h2>
+          <p class="lead">A moral architecture built around dignity, compassion, rationality, accountability, and collective well-being.</p>
+        </div>
+
+        <div class="values-stack">
+          <article class="value-card reveal"><strong>We Are One Species:</strong> All Terrans are equal in dignity and worth. No one is above or below another based on birthplace, belief, biology, or background.</article>
+          <article class="value-card reveal"><strong>Freedom Is Real When Love Is Real:</strong> Personal freedom exists alongside responsibility for others. True freedom is exercised through self-governance guided by compassion, rationality, and care for the well-being of all.</article>
+          <article class="value-card reveal"><strong>Compassion and Care Are Daily Duties:</strong> Each Terran holds responsibility not only for themselves but for ensuring the basic needs and well-being of others: food, shelter, emotional health, and companionship.</article>
+          <article class="value-card reveal"><strong>Intelligence and Rationality Are Tools, Not Weapons:</strong> We encourage reason, learning, and truth-seeking — these must be used with humility and empathy, not as means to dominate or belittle others.</article>
+          <article class="value-card reveal"><strong>Integrity Over Convenience:</strong> Honesty, loyalty, and accountability must be practiced even when it is difficult or uncomfortable.</article>
+          <article class="value-card reveal"><strong>Fidelity to the Common Good:</strong> Decisions should be made with both self and community in mind. Individual needs matter, but the good of all must be held in equal regard.</article>
+          <article class="value-card reveal"><strong>Borders Are Lines on a Map, Not Walls Between Hearts:</strong> While respecting countries and cultures, our highest loyalty is to the collective Terran family.</article>
+          <article class="value-card reveal"><strong>Diversity Is Strength, Not Division:</strong> Being different in appearance, thought, or preference does not justify exclusion or mistreatment. Individuality is part of our shared planetary tapestry.</article>
+          <article class="value-card reveal"><strong>Universal Education in Core Values:</strong> Every Terran deserves to learn, from the earliest age, the principles of rational thinking, empathy, cooperation, and self-care.</article>
+          <article class="value-card reveal"><strong>Power Must Serve, Not Rule:</strong> Leadership exists only to protect and uphold these values, not to control or exploit.</article>
+          <article class="value-card reveal"><strong>Progress Is Measured in Collective Well-Being:</strong> Technological, scientific, and cultural progress are valuable only insofar as they improve the lives of all, not just a select few.</article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="symbolism">
+      <div class="container">
+        <div class="reveal">
+          <span class="journey-label">Stage 5 · The Symbol</span>
+          <h2 class="section-title">Symbolism</h2>
+        </div>
+
+        <div class="symbol-grid">
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot blue"></span><h3>Blue (Oceans)</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>Truth, clarity, peace, and depth of reason</li>
+                <li>Intelligence and Rationality Are Tools, Not Weapons</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot green"></span><h3>Green (Continents)</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>Life, growth, healing, connection to nature and others</li>
+                <li>Compassion and Care Are Daily Duties</li>
+                <li>Progress Is Measured in Collective Well-Being</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot red"></span><h3>Red (Heart)</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>Love as action</li>
+                <li>Courage, sacrifice, and emotional honesty</li>
+                <li>Freedom Is Real When Love Is Real</li>
+                <li>Integrity Over Convenience</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot orange"></span><h3>Orange-Gold (Triangle/Lettering)</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>Structured love</li>
+                <li>Enlightened power, wisdom, and resilience</li>
+                <li>Power Must Serve, Not Rule</li>
+                <li>Fidelity to the Common Good</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot dark"></span><h3>Dark Background</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>The unknown, depth, universal space</li>
+                <li>Contrast that allows light to shine</li>
+                <li>Borders Are Lines on a Map, Not Walls Between Hearts</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="symbol-card reveal">
+            <div class="symbol-title" tabindex="0">
+              <span class="dot white"></span><h3>Light/White Overlays</h3><span class="symbol-hint">reveal</span>
+            </div>
+            <div class="symbol-content">
+              <ul class="clean">
+                <li>Transparency, openness, truth made visible</li>
+                <li>Universal Education in Core Values</li>
+                <li>Diversity Is Strength, Not Division</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="container">
+        <div class="closing-panel reveal">
+          <h2>Terra Ethos</h2>
+          <p>Not a religion. Not a nation. Not an ideology of exclusion.</p>
+          <p>A shared ethical foundation for all Terrans.</p>
+          <p class="footer-note">Terra Ethos belongs to no single institution. It belongs to all who choose care, reason, dignity, and responsibility.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    const manifesto = document.getElementById('manifestoReveal');
+    if (manifesto) {
+      const manifestoObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            manifesto.classList.add('active');
+          }
+        });
+      }, { threshold: 0.45 });
+      manifestoObserver.observe(manifesto);
+    }
+
+    document.querySelectorAll('.symbol-card').forEach((card) => {
+      const title = card.querySelector('.symbol-title');
+      const toggle = () => {
+        if (window.matchMedia('(hover: none)').matches) {
+          card.classList.toggle('active');
+        }
+      };
+      title.addEventListener('click', toggle);
+      title.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
